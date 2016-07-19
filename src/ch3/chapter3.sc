@@ -1,5 +1,3 @@
-import java.util
-
 import scala.collection.immutable.IndexedSeq
 import scala.collection.mutable.ArrayBuffer
 import scala.util.{Random, Sorting}
@@ -116,6 +114,31 @@ def transform3(a: Array[Int]) = {
 transform3(Array(-1, -2, 3, -3))
 transform3(Array(-1, 1, 2, 3, -3))
 
+//Solution 4 without any helper collections, only modifies given array
+def transform4(a: Array[Int]) = {
+  for (i <- 0 until a.length) {
+    if (a(i) <= 0) {
+      shiftBakcwards(a, i)
+      println("after shift " + a.mkString)
+    }
+  }
+}
+val arr = Array(1, -2, 3)
+val arr2 = Array(-1, 1, 2, 3, -3)
+transform4(arr)
+arr
+transform4(arr2)
+arr2
+//helper function
+//1 2 3 --> 2 3 1
+def shiftBakcwards(a: Array[Int], index: Int) = {
+  val tmp = a(index)
+  for (i <- index until a.length - 1) {
+    a(i) = a(i + 1)
+  }
+  a(a.length - 1) = tmp
+}
+
 /*
 5. How do you compute the average of an Array[Double]?
  */
@@ -164,20 +187,17 @@ for each index. Compare the efficiency of this approach with the two approaches 
 def algorithm(a: ArrayBuffer[Int]) = {
   val negIndexes = for (i <- 0 until a.length if a(i) < 0) yield i
   println("negindexes " + negIndexes)
-  val reversed = negIndexes.reverse
-  println("negindexes reversed" + reversed)
-  val ab: ArrayBuffer[Int] = ArrayBuffer[Int]()
-  reversed.copyToBuffer(ab)
-  ab.remove(ab.length - 1)
-  println("and last removed " + ab)
-  for (i <- 0 until ab.length) {
-    a.remove(ab(i))
+  val rev = negIndexes.reverse
+  println("negindexes reversed" + rev)
+  val negIndexesLastRemoved = rev.take(rev.length - 1)
+  println("and last removed " + negIndexesLastRemoved)
+  for (i <- 0 until negIndexesLastRemoved.length) {
+    a.remove(negIndexesLastRemoved(i))
   }
   a
 }
 algorithm(ArrayBuffer(-1, 2, 3, -5))
-//This is the worst approach since buffer is possibly shifted many times during the removals in final for loop.
-//Also elements removed can be in any location of the buffer
+//This is the worst approach since remove operation takes linear time and this algorithm executes remove in a loop
 
 
 /*
@@ -202,6 +222,7 @@ return value as a Scala buffer. (Why this obscure class? It’s hard to find use
 java.util.List in the standard Java library.)
  */
 import java.awt.datatransfer._
+
 import scala.collection.JavaConversions.asScalaBuffer
 import scala.collection.mutable.Buffer
 val flavors = SystemFlavorMap.getDefaultFlavorMap.asInstanceOf[SystemFlavorMap]
