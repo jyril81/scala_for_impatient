@@ -2,4 +2,4 @@
 target/*
 project/*
 build.sbt
-*/*.class
+**/*.class
