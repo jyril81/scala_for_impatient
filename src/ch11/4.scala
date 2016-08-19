@@ -72,6 +72,7 @@ object TestMoney extends App {
   println("Testing equality")
   assert(Money(2, 30) == Money(2, 30))
   assert(!(Money(2, 30) == Money(1, 30)))
+  assert(Money(2, 30) == Money(1, 130))
   println("Testing lesstThan")
   assert(!(Money(2, 30) < Money(1, 20)))
   assert(Money(2, 30) < Money(3, 20))

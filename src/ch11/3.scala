@@ -46,9 +46,11 @@ class ReducedFraction(n: Int, d: Int) {
       ReducedFraction(1, 0)
     } else {
       val lcm = ReducedFraction.lcm(den, summand.den)
-      val thisExtended = ReducelessFraction(num, den).multiply(abs(lcm / den))
-      val otherExtended = ReducelessFraction(summand.num, summand.den).multiply(abs(lcm / summand.den))
-      ReducedFraction(thisExtended.num + otherExtended.num, thisExtended.den)
+      val thisMultiplier: Int = abs(lcm / den)
+      val (thisNumExtended, thisDenExtended) = (num * thisMultiplier, den * thisMultiplier)
+      val otherMultiplier: Int = abs(lcm / summand.den)
+      val (otherNumExtended, otherDenExtended) = (summand.num * otherMultiplier, summand.den * otherMultiplier)
+      ReducedFraction(thisNumExtended + otherNumExtended, thisDenExtended)
     }
   }
 
@@ -63,9 +65,11 @@ class ReducedFraction(n: Int, d: Int) {
       ReducedFraction(1, 0)
     } else {
       val lcm = ReducedFraction.lcm(den, subtrahend.den)
-      val thisExtended = ReducelessFraction(num, den).multiply(abs(lcm / den))
-      val otherExtended = ReducelessFraction(subtrahend.num, subtrahend.den).multiply(abs(lcm / subtrahend.den))
-      ReducedFraction(thisExtended.num - otherExtended.num, thisExtended.den)
+      val thisMultiplier: Int = abs(lcm / den)
+      val (thisNumExtended, thisDenExtended) = (num * thisMultiplier, den * thisMultiplier)
+      val otherMultiplier: Int = abs(lcm / subtrahend.den)
+      val (otherNumExtended, otherDenExtened) = (subtrahend.num * otherMultiplier, subtrahend.den * otherMultiplier)
+      ReducedFraction(thisNumExtended - otherNumExtended, thisDenExtended)
     }
   }
 
@@ -90,7 +94,7 @@ class ReducedFraction(n: Int, d: Int) {
     * @return ReducedFraction which is qutient of this object and factor
     */
   def /(divisor: ReducedFraction) = {
-    this * divisor.revert
+    if (den == 0 || divisor.den == 0) ReducedFraction(1, 0) else this * divisor.revert
   }
 }
 
@@ -125,26 +129,6 @@ object ReducedFraction {
     min(abs(a), abs(b))
   }
 }
-
-/**
-  * Fraction which is not automatically reduced
-  *
-  * @param num
-  * @param den
-  */
-class ReducelessFraction(val num: Int, val den: Int) {
-
-  def multiply(multiplier: Int) = {
-    new ReducelessFraction(num * multiplier, den * multiplier)
-  }
-}
-
-object ReducelessFraction {
-  def apply(n: Int, d: Int) = {
-    new ReducelessFraction(n, d)
-  }
-}
-
 
 object TestFraction extends App {
   private val f1 = ReducedFraction(1, 2)
