@@ -12,12 +12,12 @@ class BitSequence(initialValue: Long) {
 
   def apply(index: Int): Boolean = {
     if (index < 0 || index >= NR_BITS) throw new IllegalArgumentException("Illegal bit index for long value")
-    (value & (1 << index)) != 0
+    (value & (1L << index)) != 0
   }
 
   def update(index: Int, set: Boolean): Unit = {
     if (index < 0 || index >= NR_BITS) throw new IllegalArgumentException("Illegal bit index for long value")
-    if (set) value = (value | (1 << index)) else value = value & (~(1 << index))
+    if (set) value = (value | (1L << index)) else value = value & (~(1L << index))
   }
 
   override def toString = {
@@ -42,5 +42,8 @@ object TestBitSequence extends App {
   value.printDetailed
 
   value(0) = true
+  value.printDetailed
+
+  value(3) = true
   value.printDetailed
 }
