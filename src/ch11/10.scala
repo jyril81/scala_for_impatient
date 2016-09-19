@@ -11,22 +11,6 @@ class RichFile(val path: String, val name: String, val extension: String) {
 
 
 object RichFile {
-  val filePattern = "\\/(.*)\\/(.+)\\.(.+)".r
-
-  def apply(path: String, name: String, extension: String) = {
-    new RichFile(path, name, extension)
-  }
-
-  /*
-  def unapply(fullName: String): Option[(String, String, String)] = {
-    if (fullName == null || fullName.isEmpty) None
-    else {
-      val filePattern(p, n, e) = fullName
-      Some(p, n, e)
-    }
-  }
-  */
-
   def unapplySeq(input: String): Option[Seq[String]] = {
     if (input.isEmpty) None else Some(input.split("/"))
   }
@@ -34,9 +18,6 @@ object RichFile {
 }
 
 object TestUnapply extends App {
-  val f1 = RichFile("/home/cay", "readme", "txt")
-  println(f1)
-  println()
 
   val file = "/home/cay/readme.txt"
 
