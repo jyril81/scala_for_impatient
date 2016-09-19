@@ -1,7 +1,8 @@
 /*
-9. Define an unapply operation for the RichFile class that extracts the file path, name, and extension.
-For example, the file /home/cay/readme.txt has path /home/cay, name readme, and extension txt.
- */
+10. Define an unapplySeq operation for the RichFile class that extracts all path segments. For example,
+for the file /home/cay/readme.txt, you should produce a sequence of three segments: home, cay, and
+readme.txt.
+*/
 class RichFile(val path: String, val name: String, val extension: String) {
   override def toString = {
     path + (if (path.endsWith("/")) "" else "/") + name + "." + extension
@@ -16,6 +17,7 @@ object RichFile {
     new RichFile(path, name, extension)
   }
 
+  /*
   def unapply(fullName: String): Option[(String, String, String)] = {
     if (fullName == null || fullName.isEmpty) None
     else {
@@ -23,7 +25,11 @@ object RichFile {
       Some(p, n, e)
     }
   }
+  */
 
+  def unapplySeq(input: String): Option[Seq[String]] = {
+    if (input.isEmpty) None else Some(input.split("/"))
+  }
 
 }
 
@@ -33,8 +39,13 @@ object TestUnapply extends App {
   println()
 
   val file = "/home/cay/readme.txt"
+
+
   file match {
-    case RichFile(path, name, extension) => println("path=" + path + ", name=" + name + ", extension=" + extension)
+    case RichFile(a, b, c) => println("a=" + a + ", b=" + b + ", c=" + c)
+    case RichFile(a, b, c, d) => println("a=" + a + ", b=" + b + ", c=" + c + ", d=" + d)
+    case RichFile(a, b) => println("a=" + a + ", b=" + b)
     case _ => println("Error")
   }
+
 }
