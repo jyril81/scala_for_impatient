@@ -2,12 +2,9 @@
 9. Define an unapply operation for the RichFile class that extracts the file path, name, and extension.
 For example, the file /home/cay/readme.txt has path /home/cay, name readme, and extension txt.
  */
-class RichFile(val path: String, val name: String, val extension: String) {
-  override def toString = {
-    path + (if (path.endsWith("/")) "" else "/") + name + "." + extension
-  }
-}
 
+//Note how unapply and extraction has nothing to do with classes or instance construction
+//no class definition is needed, no constructor is defined, no apply method is defined
 
 object RichFile {
   val filePattern = "\\/(.*)\\/(.+)\\.(.+)".r

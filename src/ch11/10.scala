@@ -3,12 +3,6 @@
 for the file /home/cay/readme.txt, you should produce a sequence of three segments: home, cay, and
 readme.txt.
 */
-class RichFile(val path: String, val name: String, val extension: String) {
-  override def toString = {
-    path + (if (path.endsWith("/")) "" else "/") + name + "." + extension
-  }
-}
-
 
 object RichFile {
   def unapplySeq(input: String): Option[Seq[String]] = {
