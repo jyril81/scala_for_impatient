@@ -12,8 +12,12 @@ object RichFile {
   def unapply(fullName: String): Option[(String, String, String)] = {
     if (fullName == null || fullName.isEmpty) None
     else {
-      val filePattern(p, n, e) = fullName
-      Some(p, n, e)
+      try {
+        val filePattern(p, n, e) = fullName
+        Some(p, n, e)
+      } catch {
+        case ex: Exception => None
+      }
     }
   }
 
@@ -23,6 +27,7 @@ object RichFile {
 object TestUnapply extends App {
 
   val file = "/home/cay/readme.txt"
+  //val file = "readme.txt"
   file match {
     case RichFile(path, name, extension) => println("path=" + path + ", name=" + name + ", extension=" + extension)
     case _ => println("Error")
