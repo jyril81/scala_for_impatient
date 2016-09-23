@@ -28,6 +28,7 @@ object CorrespondsWithoutCurry extends App {
   //does work when passing a function converted from a method
   println(corresponds(a, lengthsCorrect, isWithLength _))
   //does not work when passing anonymous function without explicit types
+  //so actually it is not a major problem. It only affect anonymous functions with shortcut syntax
   //println(corresponds(a, lengthsCorrect, _.length == _))
   //will work as i pass anonymous function with explicit types
   println(corresponds(a, lengthsCorrect, (str: String, len: Int) => str.length == len))
