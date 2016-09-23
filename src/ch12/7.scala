@@ -19,6 +19,10 @@ object AdjustPairs extends App {
   val f = (x: Int, y: Int) => x * y
   println(adjustToPair(f)((6, 7)))
   println(adjustToPair(_ * _)((6, 7)))
+
+  val pairs = (1 to 10) zip (11 to 20)
+  val summedPairs = pairs map adjustToPair(_ + _)
+  println(summedPairs)
 }
 
 
