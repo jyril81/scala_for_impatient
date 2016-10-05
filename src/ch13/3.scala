@@ -26,8 +26,8 @@ object RemoveZeroes extends App {
   /**
     * Iterative solution. Modifies given argument
     *
-    * @param lst
-    * @return lst
+    * @param lst to be modified
+    * @return lst that was given as param
     */
   def removeZeroesIterative(lst: LinkedList[Int]) = {
     //new head for return value
