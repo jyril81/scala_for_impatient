@@ -16,7 +16,7 @@ object ListTest extends App {
   //result is a new list identical to given lst
   println((List[Int]() /: lst) (_ :+ _))
 
-  //to produce reversed list just use foldright with append or foldleft with prepend
+  //to produce reversed list just use foldright with append of next elem or foldleft with prepend of next elem
   //since operators are oparnd order sensitive, i need to use explicit variables
   println((lst :\ List[Int]()) ((x, y) => y :+ x))
   println((List[Int]() /: lst) ((x, y) => y :: x))
