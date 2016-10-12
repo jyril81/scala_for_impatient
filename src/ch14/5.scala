@@ -13,7 +13,7 @@ numbers and lists.
  */
 
 object ListTree extends App {
-  //idea is to recurse as general algorithm and use pattern matching to differentiate between numbers and lists
+  //idea is to recurse as the general algorithm and use pattern matching to differentiate between numbers and lists
 
   def leafSum(lst: List[Any]): Int = {
     if (lst.isEmpty) 0
@@ -26,5 +26,5 @@ object ListTree extends App {
     }
   }
 
-  println(leafSum(List((3 8) 2 (5)) ) )
+  println(leafSum(List(List(3, 8), 2, List(5))))
 }
